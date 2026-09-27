@@ -10,6 +10,13 @@ Run from the product repo root. Plugin root is `${CLAUDE_PLUGIN_ROOT}`; scripts 
 ## Startup
 Run `gh issue list --label opfx:queued --json number,title` and the same for `opfx:proposed`, `opfx:review`, `opfx:approved`, `opfx:pr`, `opfx:blocked`; show one table. If a batch is in flight (any label other than queued or done), offer to resume: start a handler with those Issues.
 
+## Intake
+Anyone or anything (a person, a monitoring bot, another agent) may open an Issue with the label `opfx:intake` in free form; a production error carries `opfx:incident` as well (the incident Issue form sets both). On startup, and whenever the human says to look at the inbox, run `gh issue list --label opfx:intake --json number,title,labels,author` and handle each one:
+1. Read the body. Look for an open Issue about the same thing (`gh issue list --search`); if there is one, tell the human and, on their word, comment the link and close the new one as a duplicate.
+2. Draft the four sections (要求 / 受け入れ基準 / 想定 / 範囲外) from the report, in the configured language; keep the original text quoted at the end under a heading (原文). For an incident, put what happened, where, since when and the evidence in 想定, and the expected state in 受け入れ基準.
+3. When something needed is missing: if the author is a person, ask on the Issue with `gh issue comment <n>` and label `opfx:blocked`; if the author is a bot, ask the human with AskUserQuestion.
+4. Show the draft to the human. On confirmation, rewrite the body (`gh issue edit <n> --body-file <file>`) and swap `opfx:intake` for `opfx:queued`, keeping `opfx:incident`. Intake only queues: nothing runs until the human names the Issue (an incident is still named by the human, and the rubric's `[incident]` rule sends its PR to a human review).
+
 ## Writing an Issue
 When the human describes a request, draft the four sections (要求 / 受け入れ基準 / 想定 / 範囲外) in the configured language, show them, and on confirmation run `gh issue create --title "<title>" --body-file <file> --label opfx:queued`. Acceptance criteria are one per line; each becomes a Scenario.
 

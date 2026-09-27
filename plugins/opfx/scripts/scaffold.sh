@@ -27,6 +27,7 @@ sed 's/^/  /' "$tmp/know.txt" > "$tmp/ctx.txt"
 node "$OPFX_SCRIPTS/render.mjs" "$T/openspec-config.yaml" "$tmp/oc.yaml" "LANGUAGE=$lang" "CONTEXT=@$tmp/ctx.txt"
 mkdir -p openspec && cp "$tmp/oc.yaml" openspec/config.yaml
 put .github/ISSUE_TEMPLATE/opfx.yml "$T/issue_template.yml"
+put .github/ISSUE_TEMPLATE/incident.yml "$T/incident_template.yml"
 put .github/pull_request_template.md "$T/pull_request_template.md"
 if $labels; then bash "$OPFX_SCRIPTS/labels.sh" >/dev/null; fi
 json_out "$(jq -nc --argjson c "$created" --argjson s "$skipped" '{ok:true, created:$c, skipped:$s}')"

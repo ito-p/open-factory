@@ -28,6 +28,10 @@ agents/worker.md|gh pr ready
 agents/handler.md|pr-review.sh
 agents/handler.md|push origin --delete
 skills/supervisor/SKILL.md|pr-review.sh
+skills/supervisor/SKILL.md|## Intake
+skills/supervisor/SKILL.md|opfx:intake
+agents/handler.md|opfx:incident
+templates/rubric.md|\[incident\]
 skills/init/SKILL.md|design.docs_dir
 templates/rubric.md|design:required
 agents/handler.md|human_review[^.]*\bpr\b
@@ -65,6 +69,10 @@ if command -v ruby >/dev/null; then
   ruby -ryaml -e 'y=YAML.load_file(ARGV[0]); ok=%w[label description placeholder value render options multiple default]
     bad=y["body"].flat_map{|b|(b["attributes"]||{}).keys-ok}; abort "unknown attribute keys #{bad}" unless bad.empty?' templates/issue_template.yml \
     && echo "ok   issue form templates/issue_template.yml" || { echo "INVALID issue form templates/issue_template.yml"; rc=1; }
+  ruby -ryaml -e 'y=YAML.load_file(ARGV[0]); ok=%w[label description placeholder value render options multiple default]
+    bad=y["body"].flat_map{|b|(b["attributes"]||{}).keys-ok}; abort "unknown attribute keys #{bad}" unless bad.empty?
+    abort "incident form must carry opfx:intake and opfx:incident" unless (y["labels"] & %w[opfx:intake opfx:incident]).size == 2' templates/incident_template.yml \
+    && echo "ok   incident form templates/incident_template.yml" || { echo "INVALID incident form templates/incident_template.yml"; rc=1; }
 fi
 # The harness names no design tool: tool-specific words belong to the product repo (AGENTS.md, docs/design).
 for w in figma Figma use_figma get_metadata screens-layout; do

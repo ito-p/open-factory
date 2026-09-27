@@ -1,0 +1,33 @@
+name: opfx incident
+description: A production error or incident; the supervisor turns it into a change
+labels: ["opfx:intake", "opfx:incident"]
+body:
+  - type: textarea
+    id: symptom
+    attributes:
+      label: "症状 (What happened)"
+      description: "What users or systems observed"
+    validations:
+      required: true
+  - type: textarea
+    id: where-when
+    attributes:
+      label: "場所と時刻 (Where and since when)"
+      description: "Environment, endpoint or screen, first seen"
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: "影響 (Impact)"
+      description: "Who or what is affected, and how badly"
+  - type: textarea
+    id: evidence
+    attributes:
+      label: "証跡 (Evidence)"
+      description: "Logs, error messages, steps to reproduce"
+  - type: textarea
+    id: expected
+    attributes:
+      label: "期待する状態 (Expected)"
+      description: "What should be true once this is fixed"

@@ -50,7 +50,9 @@
     "pr": "#0B4F9C",
     "blocked": "#F0883E",
     "done": "#2EA043",
-    "follow-up": "#FBCA04"
+    "follow-up": "#FBCA04",
+    "intake": "#A5D8FF",
+    "incident": "#B60205"
   },
   "design": {
     "docs_dir": "docs/design"

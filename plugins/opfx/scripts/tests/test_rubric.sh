@@ -12,6 +12,7 @@ Some review text.
 | ui | no-match | no screen changes |
 | api | no-match | no routes |
 | db | no-match | no schema |
+| incident | no-match | not an incident |
 REV
 assert_exit 0 "parses" -- bash "$R" "$f" --rubric "$RB"
 assert_json '.human_review' '["pr"]' "$OUT" "behavior change: human reviews the PR before merge"
@@ -28,6 +29,7 @@ g=$(mktemp); cat > "$g" <<'REV'
 | ui | no-match | - |
 | api | no-match | - |
 | db | no-match | - |
+| incident | no-match | - |
 REV
 assert_exit 0 "handler may merge" -- bash "$R" "$g" --rubric "$RB"
 assert_json '.mergeable_by' handler "$OUT" "handler"
@@ -47,6 +49,7 @@ u=$(mktemp); cat > "$u" <<'REV'
 | ui | no-match | - |
 | api | no-match | - |
 | db | no-match | - |
+| incident | no-match | - |
 REV
 assert_exit 0 "undecidable" -- bash "$R" "$u" --rubric "$RB"
 assert_json '.undecidable' '["behavior-change"]' "$OUT" "undecidable listed"
@@ -93,6 +96,7 @@ n=$(mktemp); cat > "$n" <<'REV'
 | ui | no-match | - |
 | api | no-match | - |
 | db | no-match | - |
+| incident | no-match | - |
 REV
 assert_exit 0 "template defaults parse" -- bash "$R" "$n" --rubric "$RB"
 assert_json '.error' null "$OUT" "no unknown requirement from the template's no-match line"
@@ -107,7 +111,22 @@ a=$(mktemp); cat > "$a" <<'REV'
 | ui | no-match | - |
 | api | match | adds POST /api/todos |
 | db | match | adds table todos |
+| incident | no-match | - |
 REV
 assert_exit 0 "api and db rules" -- bash "$R" "$a" --rubric "$RB"
 assert_json '.human_review' '["pr"]' "$OUT" "api/db: PR review, not plan review"; assert_json '.design_required' true "$OUT" "api/db: design.md required"
+i=$(mktemp); cat > "$i" <<'REV'
+## rubric-verdict
+| id | verdict | evidence |
+|---|---|---|
+| behavior-change | no-match | - |
+| new-capability-design | no-match | - |
+| docs-only | no-match | - |
+| ui | no-match | - |
+| api | no-match | - |
+| db | no-match | - |
+| incident | match | Issue carries opfx:incident |
+REV
+assert_exit 0 "incident rule" -- bash "$R" "$i" --rubric "$RB"
+assert_json '.human_review' '["pr"]' "$OUT" "incident: a human reviews the PR"
 finish

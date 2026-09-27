@@ -6,6 +6,7 @@ desc() { case "$1" in
   queued) echo "written by supervisor, not started";; proposed) echo "worker passed gate 1, waiting for R1";;
   review) echo "reviewer or human reviewing";; approved) echo "worker may apply";; pr) echo "handler running R2 and gate 3";;
   blocked) echo "waiting for a human answer";; done) echo "merged";; follow-up) echo "deferred WARNING from a review";;
+  intake) echo "free-form report or request; the supervisor turns it into a spec";; incident) echo "production error or incident; priority, kept through the run";;
   *) echo "opfx";; esac; }
 made='[]'
 while IFS=$'\t' read -r k c; do

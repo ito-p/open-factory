@@ -34,6 +34,10 @@ Issue (opfx:queued)
 
 Anything the pipeline cannot decide is escalated to the human through the supervisor: spec judgments (kinds a–f), a plan or PR review request, a merge request, or a follow-up list of deferred WARNINGs.
 
+## Intake
+
+Requests do not have to come from the human's chat. Anyone or anything, a person, a monitoring bot, another agent, can open an Issue with the label `opfx:intake` in free form; a production error uses the incident Issue form, which adds `opfx:incident`. The supervisor picks these up on startup or on request, checks for duplicates, rewrites each one into the four sections (request, acceptance criteria, assumptions, out of scope) with the original quoted, asks the reporter or the human for anything missing, and moves it to `opfx:queued` once the human confirms. Intake only queues: nothing runs until the human names the Issue. An incident keeps its label through the run, and the rubric's `[incident]` rule sends its PR to a human review before merge.
+
 ## Roles and topology
 
 | Role | What it is | What it does |
@@ -106,7 +110,7 @@ Every script prints one JSON object on stdout and exits 0 (green), 1 (red) or 2 
 
 ### Templates
 
-`config.json` (defaults), `rubric.md`, `AGENTS.md`, `openspec-config.yaml`, `issue_template.yml`, `pull_request_template.md`, and `evals/` (a README and an optional Scenario-to-test check).
+`config.json` (defaults), `rubric.md`, `AGENTS.md`, `openspec-config.yaml`, `issue_template.yml`, `incident_template.yml`, `pull_request_template.md`, and `evals/` (a README and an optional Scenario-to-test check).
 
 ## What a product repository gets
 
@@ -120,7 +124,7 @@ AGENTS.md                     knowledge for every agent (stack, conventions, des
 openspec/                     OpenSpec: specs (source of truth), changes, config
 .github/ISSUE_TEMPLATE/opfx.yml
 .github/pull_request_template.md
-labels                        opfx:queued proposed review approved pr blocked done follow-up
+labels                        opfx:intake incident queued proposed review approved pr blocked done follow-up
 ```
 
 Conventions: change `<issue>-<kebab-title>`, branch `factory/<change>`, worktree `../<repo>-wt/<change>`, trace comments `<kind> | <change> | … | <timestamp>`.
