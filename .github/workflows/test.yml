@@ -1,0 +1,13 @@
+name: test
+on: [push, pull_request]
+jobs:
+  scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20.19.0" }
+      - run: sudo apt-get install -y jq
+      - run: npx --yes @fission-ai/openspec@1.13.2 --version
+      - run: bash plugins/opfx/scripts/tests/run.sh
+      - run: bash plugins/opfx/tests/checklist.sh
