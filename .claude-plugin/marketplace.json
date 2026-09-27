@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "open-factory",
+  "description": "opfx: a software factory harness on top of OpenSpec — supervisor / handler / worker / reviewer agents, gates, rubric-driven review, trace on GitHub",
+  "owner": { "name": "ito-p" },
+  "plugins": [
+    {
+      "name": "opfx",
+      "description": "Run a GitHub Issue through OpenSpec propose → review → apply → archive → PR with nested Claude agents, gates and rubric-driven human review",
+      "source": "./plugins/opfx",
+      "category": "workflow",
+      "homepage": "https://github.com/ito-p/open-factory"
+    }
+  ]
+}

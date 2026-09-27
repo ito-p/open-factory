@@ -1,0 +1,9 @@
+{
+  "name": "opfx",
+  "version": "0.1.0",
+  "description": "Software factory harness on OpenSpec: supervisor, handler, worker and reviewer agents; validate / eval / archive / PR gates; rubric-driven review; trace and token usage on GitHub.",
+  "author": { "name": "ito-p" },
+  "repository": "https://github.com/ito-p/open-factory",
+  "license": "MIT",
+  "keywords": ["openspec", "spec-driven", "agents", "software-factory", "github"]
+}
