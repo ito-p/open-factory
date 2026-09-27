@@ -1,0 +1,25 @@
+schema: spec-driven
+
+context: |
+  Language: {{LANGUAGE}}
+  All artifacts must be written in {{LANGUAGE}}.
+  Keep OpenSpec structural headings and SHALL/MUST keywords in English.
+  This project is run by opfx (open-factory). Read AGENTS.md for project knowledge.
+{{CONTEXT}}
+
+rules:
+  specs:
+    - For MODIFIED requirements copy the whole block from openspec/specs/<capability>/spec.md (header through every scenario) and edit it; never write a partial block
+    - Use MODIFIED for existing behavior and ADDED only for new behavior; never duplicate an existing requirement under ADDED
+    - Scenario titles must be short noun phrases that can be reused verbatim as test names
+  design:
+    - Whether design.md is required is decided by .factory/rubric.md (rules with design:required); when required, fill Decisions with alternatives
+    - When design.md is required for a UI change, it lists the screens, their states and the transitions in the form the project's design rules name (AGENTS.md, the design docs dir), and the ids of what was made in the project's design tool
+
+operations:
+  apply:
+    guidance:
+      - Run the verification named in each task exactly as written before marking it [x]
+  archive:
+    guidance:
+      - Archive is done by opfx scripts/archive.sh, never by hand

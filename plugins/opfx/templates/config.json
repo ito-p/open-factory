@@ -1,0 +1,58 @@
+{
+  "base_branch": "main",
+  "language": "ja",
+  "orchestration": {
+    "workers": 2,
+    "review_parallel": 2,
+    "batch_size": 5
+  },
+  "models": {
+    "worker": "opus",
+    "reviewer": "opus",
+    "handler": "opus"
+  },
+  "review": {
+    "max_rounds": 3,
+    "stop_on": [
+      "CRITICAL",
+      "QUESTION"
+    ],
+    "fix_before_human": [
+      "CRITICAL",
+      "WARNING"
+    ],
+    "fix_before_merge": [
+      "CRITICAL"
+    ],
+    "contest_allowed": 1
+  },
+  "gates": {
+    "max_retries": 3,
+    "test_command": "npm test",
+    "lint_command": "",
+    "wait_ci": true
+  },
+  "escalation": {
+    "on": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f"
+    ]
+  },
+  "labels": {
+    "queued": "#C5C5C5",
+    "proposed": "#5BA3E6",
+    "review": "#8B5CF6",
+    "approved": "#1D76DB",
+    "pr": "#0B4F9C",
+    "blocked": "#F0883E",
+    "done": "#2EA043",
+    "follow-up": "#FBCA04"
+  },
+  "design": {
+    "docs_dir": "docs/design"
+  }
+}

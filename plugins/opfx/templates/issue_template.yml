@@ -1,0 +1,27 @@
+name: opfx request
+description: A request the factory turns into one change
+labels: ["opfx:queued"]
+body:
+  - type: textarea
+    id: request
+    attributes:
+      label: "要求 (Request)"
+      description: "What should change, in the user's words"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: "受け入れ基準 (Acceptance criteria)"
+      description: "One line each; each becomes a Scenario"
+    validations:
+      required: true
+  - type: textarea
+    id: assumptions
+    attributes:
+      label: "想定 (Assumptions)"
+      description: "What the requester assumes about behavior, data and users"
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: "範囲外 (Out of scope)"
